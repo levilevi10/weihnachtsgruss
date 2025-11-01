@@ -138,21 +138,13 @@
     <!-- Start Button für Autoplay -->
     <button class="start-button" id="startBtn">🎄 Klick mich! 🎅</button>
 
-    <!-- Hintergrundvideo -->
-    <video id="bg-video" autoplay muted loop playsinline>
-        <source src="video.mp4" type="video/mp4">
-        <!-- ANLEITUNG: Ersetze "video.mp4" mit dem Namen deiner Videodatei
-             ODER nutze ein YouTube-Video (siehe Kommentar unten) -->
-    </video>
-
-    <!-- Alternative: YouTube Video als Hintergrund (auskommentiert)
+    <!-- YouTube Hintergrundvideo -->
     <iframe id="bg-video" 
             src="https://www.youtube.com/embed/i6wwl_tFMAg?autoplay=1&mute=1&loop=1&playlist=i6wwl_tFMAg&controls=0&showinfo=0" 
             frameborder="0" 
             allow="autoplay; encrypted-media"
             allowfullscreen>
     </iframe>
-    -->
 
     <div class="overlay"></div>
 
@@ -169,7 +161,6 @@
     <!-- Audio -->
     <audio id="christmas-audio" loop>
         <source src="file_example_MP3_2MG.mp3" type="audio/mpeg">
-        <!-- ANLEITUNG: Ersetze "musik.mp3" mit dem Namen deiner Musikdatei -->
     </audio>
 
     <script>
@@ -194,7 +185,6 @@
         const startBtn = document.getElementById('startBtn');
         const content = document.getElementById('content');
         const audio = document.getElementById('christmas-audio');
-        const video = document.getElementById('bg-video');
 
         startBtn.addEventListener('click', function() {
             // Button ausblenden
@@ -205,9 +195,6 @@
             
             // Musik abspielen
             audio.play().catch(e => console.log('Audio konnte nicht abgespielt werden:', e));
-            
-            // Video Sound aktivieren (falls gewünscht)
-            video.muted = false;
         });
     </script>
 </body>
