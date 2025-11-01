@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frohe Weihnachten!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        #bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            animation: fadeIn 2s ease-in;
+        }
+
+        .message {
+            font-size: 1.8rem;
+            max-width: 800px;
+            line-height: 1.6;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            animation: fadeIn 3s ease-in;
+        }
+
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: 2;
+            color: white;
+            font-size: 1.5rem;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .start-button {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background: #c41e3a;
+            color: white;
+            border: none;
+            padding: 30px 60px;
+            font-size: 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .start-button:hover {
+            background: #a01729;
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .message {
+                font-size: 1.2rem;
+            }
+            .start-button {
+                font-size: 1.5rem;
+                padding: 20px 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Start Button für Autoplay -->
+    <button class="start-button" id="startBtn">🎄 Klick mich! 🎅</button>
+
+    <!-- Hintergrundvideo -->
+    <video id="bg-video" autoplay muted loop playsinline>
+        <source src="video.mp4" type="video/mp4">
+        <!-- ANLEITUNG: Ersetze "video.mp4" mit dem Namen deiner Videodatei
+             ODER nutze ein YouTube-Video (siehe Kommentar unten) -->
+    </video>
+
+    <!-- Alternative: YouTube Video als Hintergrund (auskommentiert)
+    <iframe id="bg-video" 
+            src="https://www.youtube.com/embed/DEINE_VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=DEINE_VIDEO_ID&controls=0&showinfo=0" 
+            frameborder="0" 
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+    </iframe>
+    -->
+
+    <div class="overlay"></div>
+
+    <div class="container hidden" id="content">
+        <h1>🎄 Frohe Weihnachten! 🎅</h1>
+        <p class="message">
+            Ich wünsche dir besinnliche Feiertage,<br>
+            Zeit mit deinen Liebsten und ein<br>
+            frohes neues Jahr 2026!<br><br>
+            Mögen all deine Wünsche in Erfüllung gehen! ✨
+        </p>
+    </div>
+
+    <!-- Audio -->
+    <audio id="christmas-audio" loop>
+        <source src="musik.mp3" type="audio/mpeg">
+        <!-- ANLEITUNG: Ersetze "musik.mp3" mit dem Namen deiner Musikdatei -->
+    </audio>
+
+    <script>
+        // Schneeflocken Animation
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake.style.animationDuration = Math.random() * 3 + 5 + 's';
+            snowflake.style.opacity = Math.random();
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 8000);
+        }
+
+        setInterval(createSnowflake, 200);
+
+        // Start Button Handler
+        const startBtn = document.getElementById('startBtn');
+        const content = document.getElementById('content');
+        const audio = document.getElementById('christmas-audio');
+        const video = document.getElementById('bg-video');
+
+        startBtn.addEventListener('click', function() {
+            // Button ausblenden
+            startBtn.classList.add('hidden');
+            
+            // Content einblenden
+            content.classList.remove('hidden');
+            
+            // Musik abspielen
+            audio.play().catch(e => console.log('Audio konnte nicht abgespielt werden:', e));
+            
+            // Video Sound aktivieren (falls gewünscht)
+            video.muted = false;
+        });
+    </script>
+</body>
+</html>
