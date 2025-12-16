@@ -17,17 +17,15 @@
             height: 100vh;
         }
 
-        #bg-video {
+        /* Neuer CSS-Stil für das Hintergrundbild */
+        #bg-image {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Stellt sicher, dass das Bild den Schirm füllt */
             z-index: -1;
-            object-fit: cover;
         }
 
         .overlay {
@@ -36,7 +34,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.4); /* Etwas transparenter, damit man das Foto besser sieht */
             z-index: 0;
         }
 
@@ -135,16 +133,18 @@
     </style>
 </head>
 <body>
-    <!-- Start Button für Autoplay -->
-    <button class="start-button" id="startBtn">🎄 Klick mich! 🎅</button>
+    <!-- Start Button für Musik -->
+    <button class="start-button" id="startBtn">🎄 Karte öffnen 🎅</button>
 
-    <!-- YouTube Hintergrundvideo -->
-    <iframe id="bg-video" 
-            src="https://www.youtube.com/embed/EzTmikpuQFE?autoplay=1&mute=1&loop=1&playlist=EzTmikpuQFE&controls=0&showinfo=0" 
-            frameborder="0" 
-            allow="autoplay; encrypted-media"
-            allowfullscreen>
-    </iframe>
+    <!-- 
+      HINTERGRUNDBILD:
+      Um dein eigenes Bild zu nutzen:
+      1. Speichere dein Bild im gleichen Ordner wie diese Datei.
+      2. Ändere unten src="..." zu src="dein-bildname.jpg"
+    -->
+    <img id="bg-image" 
+         src="https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=1920&auto=format&fit=crop" 
+         alt="Weihnachtshintergrund">
 
     <div class="overlay"></div>
 
@@ -158,7 +158,7 @@
         </p>
     </div>
 
-    <!-- Audio -->
+    <!-- Audio: Zurückgesetzt auf deine lokale Datei -->
     <audio id="christmas-audio" loop>
         <source src="Sleigh Ride (Indian Christmas Remix).mp3" type="audio/mpeg">
     </audio>
@@ -194,7 +194,10 @@
             content.classList.remove('hidden');
             
             // Musik abspielen
-            audio.play().catch(e => console.log('Audio konnte nicht abgespielt werden:', e));
+            audio.play().catch(e => {
+                console.log('Audio konnte nicht abgespielt werden:', e);
+                alert("Audio konnte nicht starten. Bitte Interaktionseinstellungen prüfen.");
+            });
         });
     </script>
 </body>
