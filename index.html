@@ -17,14 +17,13 @@
             height: 100vh;
         }
 
-        /* Neuer CSS-Stil für das Hintergrundbild */
         #bg-image {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Stellt sicher, dass das Bild den Schirm füllt */
+            object-fit: cover;
             z-index: -1;
         }
 
@@ -34,7 +33,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Etwas transparenter, damit man das Foto besser sieht */
+            background: rgba(0, 0, 0, 0.4);
             z-index: 0;
         }
 
@@ -133,17 +132,10 @@
     </style>
 </head>
 <body>
-    <!-- Start Button für Musik -->
     <button class="start-button" id="startBtn">🎄 Karte öffnen 🎅</button>
 
-    <!-- 
-      HINTERGRUNDBILD:
-      Um dein eigenes Bild zu nutzen:
-      1. Speichere dein Bild im gleichen Ordner wie diese Datei.
-      2. Ändere unten src="..." zu src="dein-bildname.jpg"
-    -->
     <img id="bg-image" 
-         src="https://images.unsplash.com/photo-1543589077-47d81606c1bf?q=80&w=1920&auto=format&fit=crop" 
+         src="25_11_15_Weihnachtsfotos4055.jpg" 
          alt="Weihnachtshintergrund">
 
     <div class="overlay"></div>
@@ -158,13 +150,11 @@
         </p>
     </div>
 
-    <!-- Audio: Zurückgesetzt auf deine lokale Datei -->
     <audio id="christmas-audio" loop>
         <source src="Sleigh Ride (Indian Christmas Remix).mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Schneeflocken Animation
         function createSnowflake() {
             const snowflake = document.createElement('div');
             snowflake.classList.add('snowflake');
@@ -181,22 +171,15 @@
 
         setInterval(createSnowflake, 200);
 
-        // Start Button Handler
         const startBtn = document.getElementById('startBtn');
         const content = document.getElementById('content');
         const audio = document.getElementById('christmas-audio');
 
         startBtn.addEventListener('click', function() {
-            // Button ausblenden
             startBtn.classList.add('hidden');
-            
-            // Content einblenden
             content.classList.remove('hidden');
-            
-            // Musik abspielen
             audio.play().catch(e => {
                 console.log('Audio konnte nicht abgespielt werden:', e);
-                alert("Audio konnte nicht starten. Bitte Interaktionseinstellungen prüfen.");
             });
         });
     </script>
